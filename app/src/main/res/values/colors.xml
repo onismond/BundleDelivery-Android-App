@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#177e89</color>
+    <color name="golden">#DAA520</color>
+    <color name="highlight">?android:attr/colorControlHighlight</color>
+    <color name="primary_darker">#59177E89</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="forgot_password">#756363</color>
+    <color name="app_title">#DDFEFEFF</color>
+    <color name="grey">#ECF1EC</color>
+    <color name="image_background">#f4f7f8</color>
+    <color name="image_background_featured">#E6D29B</color>>
+    <color name="btn_primary_ripple">#4DFFFFFF</color>
+    <color name="btn_secondary_ripple">#22B3C3</color>
+    <color name="btn_primary_background">@color/primary</color>
+    <color name="btn_secondary_background">@color/grey</color>
+    <color name="container1_background">#43177E89</color>
+    <color name="container1_fade_background">#1E177E89</color>
+    <color name="container2_background">#41DAA520</color>
+    <color name="container2_fade_background">#1DDAA520</color>
+    <color name="container1_ripple">@color/highlight</color>
+    <color name="container2_ripple">@color/highlight</color>
+</resources>

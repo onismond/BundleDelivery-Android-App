@@ -1,5 +1,6 @@
 package com.pietech.bundledelivery.ui.home
 
+import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -15,22 +16,25 @@ import com.pietech.bundledelivery.R
 import com.pietech.bundledelivery.data.db.entities.Order
 import com.pietech.bundledelivery.data.network.OrderListener
 import com.pietech.bundledelivery.data.network.WebSocketManager
+import com.pietech.bundledelivery.data.preferences.PreferenceProvider
 import com.pietech.bundledelivery.databinding.ActivityHomeBinding
-import com.pietech.bundledelivery.util.snackbar
+import com.pietech.bundledelivery.util.*
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.dialog_accept_order.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
 import kotlin.concurrent.thread
 
-class HomeActivity : AppCompatActivity(), KodeinAware, OrderListener {
+class HomeActivity : AppCompatActivity(), KodeinAware, OrderListener, DeliveryFeeDialog.FeeDialogListener {
 
     override val kodein by kodein()
     private val factory: HomeViewModelFactory by instance()
+    private val preference: PreferenceProvider by instance()
     private lateinit var binding: ActivityHomeBinding
     private lateinit var navController: NavController
-    private lateinit var homeViewModel: HomeViewModel
-    private val serverUrl = "ws://192.168.236.83:80/api/order1"
+    private lateinit var viewModel: HomeViewModel
+    private val serverUrl = "ws://192.168.241.83:80/api/order1"
 //    private val serverUrl = "wss://websocket-echo.glitch.me"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +43,7 @@ class HomeActivity : AppCompatActivity(), KodeinAware, OrderListener {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-        homeViewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+        viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
 
         navController = findNavController(R.id.nav_fragment)
         val appBarConfiguration = AppBarConfiguration
@@ -102,6 +106,37 @@ class HomeActivity : AppCompatActivity(), KodeinAware, OrderListener {
     override fun onOrder(order: Order?) {
         println(order)
         binding.root.snackbar(order.toString())
+    }
+
+    override fun onDialogConfirmClick(amount: String, dialog: Dialog) {
+        Coroutines.io {
+            try {
+                val order_id = preference.getOrderId().toString()
+                val acceptOrderResponse = viewModel.acceptOrder(order_id, amount)
+                if (acceptOrderResponse.isSuccessful!!){
+                    viewModel.setOngoing(order_id)
+                    runOnUiThread{ navigateToDeliveries(dialog) }
+
+                }
+            } catch (e: ApiException) {
+                binding.root.snackbar(e.message!!)
+            } catch (e: NoInternetException) {
+                binding.root.snackbar(e.message!!)
+            }
+        }
+    }
+
+
+    fun navigateToDeliveries(){
+        val item = bottomNavigationView.menu.findItem(R.id.deliveriesFragment)
+        NavigationUI.onNavDestinationSelected(item, navController)
+
+    }
+
+    fun navigateToDeliveries(dialog: Dialog){
+        val item = bottomNavigationView.menu.findItem(R.id.deliveriesFragment)
+        NavigationUI.onNavDestinationSelected(item, navController)
+        dialog.cancel()
     }
 
 

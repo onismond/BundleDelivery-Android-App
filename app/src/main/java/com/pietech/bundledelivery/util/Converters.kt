@@ -4,7 +4,7 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.pietech.bundledelivery.data.db.entities.Product
-import com.pietech.bundledelivery.data.db.entities.Store
+import com.pietech.bundledelivery.data.db.entities.Profile
 
 class Converters {
 //    @TypeConverter
@@ -13,7 +13,7 @@ class Converters {
 //    }
 
     @TypeConverter
-    fun StoreListToJson(value: MutableList<Store>): String{
+    fun StoreListToJson(value: MutableList<Profile>): String{
         return Gson().toJson(value)
     }
 

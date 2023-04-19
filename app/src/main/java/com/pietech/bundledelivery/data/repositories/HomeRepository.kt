@@ -1,45 +1,65 @@
 package com.pietech.bundledelivery.data.repositories
 
 import com.pietech.bundledelivery.data.db.AppDatabase
+import com.pietech.bundledelivery.data.db.entities.Order
+import com.pietech.bundledelivery.data.db.entities.Payout
+import com.pietech.bundledelivery.data.db.entities.Profile
 import com.pietech.bundledelivery.data.network.MyApi
 import com.pietech.bundledelivery.data.network.SafeApiRequest
+import com.pietech.bundledelivery.data.network.responses.*
 
 class HomeRepository(
     private val api: MyApi,
     private val db: AppDatabase
 ): SafeApiRequest() {
-//
-//    suspend fun index() : IndexResponse {
-//        return apiRequest { api.index() }
-//    }
-//
-//    fun getUser() = db.getUserDao().getCurrentUser()
-//
-//    fun saveProduct(product: Product) = db.getCurrentProductDao().upsert(product)
-//
-//    fun getCurrentProduct() = db.getCurrentProductDao().getproduct()
-////    Cart
-//    fun addToCart(cart: Cart) = db.getCartDao().upsert(cart)
-//
-//    fun removeFromCart(cart: Cart) = db.getCartDao().remove(cart)
-//
-//    fun getCartItems() = db.getCartDao().getcart()
-//
-//    fun getCurrentCart() = db.getCartDao().getCurrentCart()
-////    Orders
-//    fun addToOrders(order: Order) = db.getOrderDao().upsert(order)
-//
-//    fun removeFromOrders(order: Order) = db.getOrderDao().remove(order)
-//
-//    fun getOrders() = db.getOrderDao().getorder()
-//
-//    suspend fun getSearchItems(keyword: String) : SearchResponse {
-//        return apiRequest { api.search(keyword) }
-//    }
-//
-//    suspend fun submitOrder(token: String, cart: String) : OrderResponse {
-//        return apiRequest { api.order(token, cart) }
-//    }
+
+    fun getUserToken() = db.getUserDao().getUserToken() //
+
+    fun getProfile() = db.getProfileDao().getProfile()
+
+    fun saveProfile(profile: Profile) = db.getProfileDao().upsert(profile)
+
+    suspend fun loadProfile(token: String): ProfileResponse {
+        return apiRequest { api.loadProfile(token) }
+    }
+
+    fun getAvailableOrders() = db.getOrderDao().getAvailableOrders()
+
+    fun getOngoingOrders() = db.getOrderDao().getOngoingOrders()
+
+    fun getCompletedOrders() = db.getOrderDao().getCompletedOrders()
+
+    fun getOrder(order_id: String) = db.getOrderDao().getOrder(order_id)
+
+    fun saveOrder(order: Order) = db.getOrderDao().upsert(order)
+
+    fun setOngoing(order_id: String) = db.getOrderDao().setOngoing(order_id)
+
+    fun setCompleted(order_id: String) = db.getOrderDao().setCompleted(order_id)
+
+    suspend fun getNewOrders(token: String): OrderResponse {
+        return apiRequest { api.getNewOrders(token) }
+    }
+
+    suspend fun getTransactions(token: String, tran_ids: String): TransactionResponse {
+        return apiRequest { api.getTransactions(token, tran_ids) }
+    }
+
+    suspend fun acceptOrder(token: String, order_id: String, amount: String): AcceptOrderResponse {
+        return apiRequest { api.acceptOrder(token, order_id, amount) }
+    }
+
+    suspend fun completedOrder(token: String, order_id: String): AcceptOrderResponse {
+        return apiRequest { api.completedOrder(token, order_id) }
+    }
+
+    fun getPayouts() = db.getPayoutDao().getPayouts()
+
+    fun savePayout(payout: Payout) = db.getPayoutDao().upsert(payout)
+
+    suspend fun loadPayouts(token: String): PayoutResponse {
+        return apiRequest { api.loadPayouts(token) }
+    }
 
 }
 

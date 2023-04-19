@@ -26,6 +26,7 @@ class ProfileFragment : Fragment(), KodeinAware {
     ): View? {
         binding = FragmentProfileBinding.inflate(inflater)
         viewModel = ViewModelProvider(this, factory)[HomeViewModel::class.java]
+        binding.imageViewAvatar.clipToOutline = true
         return binding.root
     }
 }

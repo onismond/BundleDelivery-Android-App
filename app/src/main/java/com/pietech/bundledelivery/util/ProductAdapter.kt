@@ -5,10 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.pietech.bundledelivery.R
-import com.pietech.bundledelivery.data.db.entities.Order
-import com.pietech.bundledelivery.data.db.entities.OrderStore
 import com.pietech.bundledelivery.data.db.entities.Product
-import com.pietech.bundledelivery.data.db.entities.Store
 import kotlinx.android.synthetic.main.item_product.view.*
 
 class ProductAdapter(

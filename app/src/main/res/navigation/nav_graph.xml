@@ -12,6 +12,9 @@
         <action
             android:id="@+id/action_homeFragment_to_orderFragment"
             app:destination="@id/orderFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_payoutsFragment"
+            app:destination="@id/payoutsFragment" />
     </fragment>
     <fragment
         android:id="@+id/deliveriesFragment"
@@ -28,4 +31,9 @@
         android:name="com.pietech.bundledelivery.ui.home.order.OrderFragment"
         android:label="Order"
         tools:layout="@layout/fragment_order" />
+    <fragment
+        android:id="@+id/payoutsFragment"
+        android:name="com.pietech.bundledelivery.ui.home.payouts.PayoutsFragment"
+        android:label="Payouts"
+        tools:layout="@layout/fragment_payouts" />
 </navigation>

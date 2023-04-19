@@ -10,7 +10,8 @@
     android:background="@drawable/order_ripple"
     android:outlineProvider="background"
     android:elevation="1dp"
-    android:clickable="true">
+    android:clickable="true"
+    android:focusable="true">
 
 
     <ImageView

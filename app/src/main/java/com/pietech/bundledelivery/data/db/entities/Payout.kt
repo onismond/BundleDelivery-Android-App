@@ -4,9 +4,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
-data class Store(
+data class Payout(
     @PrimaryKey(autoGenerate = false)
-    var id: String? = null,
-    var name: String? = null,
-    var products: MutableList<Product>? = null,
+    var id: String = "",
+    var amount: String? = null,
+    var date: String? = null,
 )

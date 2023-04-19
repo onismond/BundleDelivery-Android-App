@@ -1,6 +1,6 @@
 package com.pietech.bundledelivery.data.network
 
-import com.pietech.bundledelivery.data.network.responses.AuthResponse
+import com.pietech.bundledelivery.data.network.responses.*
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -12,21 +12,45 @@ import retrofit2.http.POST
 
 interface MyApi {
 
-//    @GET("index")
-//    suspend fun index() : Response<IndexResponse>
-//
-//    @FormUrlEncoded
-//    @POST("search")
-//    suspend fun search(
-//        @Field("keyword") keyword: String
-//    ) : Response<SearchResponse>
-//
-//    @FormUrlEncoded
-//    @POST("order")
-//    suspend fun order(
-//        @Field("token") token: String,
-//        @Field("cart") cart: String
-//    ) : Response<OrderResponse>
+    @FormUrlEncoded
+    @POST("delivery/profile")
+    suspend fun loadProfile(
+        @Field("token") token: String,
+    ) : Response<ProfileResponse>
+
+    @FormUrlEncoded
+    @POST("orders")
+    suspend fun getNewOrders(
+        @Field("token") token: String,
+    ) : Response<OrderResponse>
+
+    @FormUrlEncoded
+    @POST("transactions")
+    suspend fun getTransactions(
+        @Field("token") token: String,
+        @Field("tran_ids") tran_ids: String,
+    ) : Response<TransactionResponse>
+
+    @FormUrlEncoded
+    @POST("order/accept")
+    suspend fun acceptOrder(
+        @Field("token") token: String,
+        @Field("order_id") order_id: String,
+        @Field("amount") amount: String,
+    ) : Response<AcceptOrderResponse>
+
+    @FormUrlEncoded
+    @POST("order/completed")
+    suspend fun completedOrder(
+        @Field("token") token: String,
+        @Field("order_id") tran_ids: String,
+    ) : Response<AcceptOrderResponse>
+
+    @FormUrlEncoded
+    @POST("user/payouts")
+    suspend fun loadPayouts(
+        @Field("token") token: String,
+    ) : Response<PayoutResponse>
 
     @FormUrlEncoded
     @POST("login")
@@ -53,7 +77,7 @@ interface MyApi {
                 .build()
             return Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("http://192.168.189.83/api/")
+                .baseUrl("http://192.168.241.83/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(MyApi::class.java)

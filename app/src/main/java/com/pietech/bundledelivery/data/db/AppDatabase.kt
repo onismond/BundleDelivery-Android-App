@@ -6,18 +6,22 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.pietech.bundledelivery.data.db.entities.Order
+import com.pietech.bundledelivery.data.db.entities.Payout
+import com.pietech.bundledelivery.data.db.entities.Profile
 import com.pietech.bundledelivery.data.db.entities.User
 import com.pietech.bundledelivery.util.Converters
 
 @Database(
-    entities = [User::class, Order::class,],
-    version = 2
+    entities = [User::class, Order::class, Profile::class, Payout::class],
+    version = 1
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getUserDao() : UserDao
     abstract fun getOrderDao() : OrderDao
+    abstract fun getProfileDao() : ProfileDao
+    abstract fun getPayoutDao() : PayoutDao
 
     companion object{
         @Volatile

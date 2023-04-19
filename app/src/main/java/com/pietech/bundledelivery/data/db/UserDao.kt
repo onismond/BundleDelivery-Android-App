@@ -20,4 +20,7 @@ interface UserDao {
     @Query("SELECT * FROM user WHERE uid = $CURRENT_USER_ID")
     fun getCurrentUser() : User
 
+    @Query("SELECT token FROM user WHERE uid = $CURRENT_USER_ID")
+    fun getUserToken() : String
+
 }

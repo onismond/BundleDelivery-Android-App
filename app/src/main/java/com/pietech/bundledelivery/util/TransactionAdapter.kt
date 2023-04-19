@@ -6,21 +6,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.pietech.bundledelivery.R
-import com.pietech.bundledelivery.data.db.entities.OrderStore
-import kotlinx.android.synthetic.main.item_store.view.*
+import com.pietech.bundledelivery.data.db.entities.Transaction
+import kotlinx.android.synthetic.main.item_transaction.view.*
 
-class StoreAdapter(
-    private val stores: MutableList<OrderStore>
-): RecyclerView.Adapter<StoreAdapter.StoreViewHolder>() {
+class TransactionAdapter(
+    private val transactions: MutableList<Transaction>
+): RecyclerView.Adapter<TransactionAdapter.StoreViewHolder>() {
 
     private var viewPool = RecyclerView.RecycledViewPool()
-//    lateinit var onOrderClicked: ((Order) -> Unit)
+//    lateinit var onTransactionClicked: ((Transaction) -> Unit)
 
     inner class StoreViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
 //        val text_view_name: TextView = itemView.text_view_name
         init {
 //            itemView.setOnClickListener{
-////                onOrderClicked.invoke(orders[bindingAdapterPosition])
+//                onTransactionClicked.invoke(transactions[bindingAdapterPosition])
 //            }
         }
     }
@@ -28,7 +28,7 @@ class StoreAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoreViewHolder {
         return StoreViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.item_store,
+                R.layout.item_transaction,
                 parent,
                 false
             )
@@ -36,10 +36,11 @@ class StoreAdapter(
     }
 
     override fun onBindViewHolder(holder: StoreViewHolder, position: Int) {
-        val curItem = stores[position]
+        val curItem = transactions[position]
         holder.itemView.apply {
             text_view_store_name.text = curItem.name
             text_view_amount.text = storeTotal(curItem)
+            text_view_transaction_code.text = curItem.code
         }
         if (curItem.products != null){
             val productAdapter = ProductAdapter(curItem.products!!)
@@ -60,10 +61,10 @@ class StoreAdapter(
     }
 
     override fun getItemCount(): Int {
-        return stores.size
+        return transactions.size
     }
 
-    private fun storeTotal(store: OrderStore): String {
+    private fun storeTotal(store: Transaction): String {
         return "10.00"
     }
 }

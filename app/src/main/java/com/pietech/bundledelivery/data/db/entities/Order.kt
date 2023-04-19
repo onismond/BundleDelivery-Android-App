@@ -12,5 +12,5 @@ data class Order(
     var amount: String? = null,
     var status: String? = null,
     var date_completed: String? = null,
-    var order_stores: String? = null,
+    var transactions: String? = null,
 )

@@ -8,11 +8,11 @@ plugins {
 }
 
 android {
-    namespace 'com.pietech.bundledelivery'
+    namespace 'com.bundlegh.bundledelivery'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.pietech.bundledelivery"
+        applicationId "com.bundlegh.bundledelivery"
         minSdk 24
         targetSdk 33
         versionCode 1
@@ -43,6 +43,7 @@ android {
 dependencies {
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
     def lifecycle_version = "2.6.0-alpha03"
     // def arch_version = "2.1.0"
 
@@ -99,5 +100,11 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.1.0"
+
+    // KTX for the Maps SDK for Android
+    implementation 'com.google.maps.android:maps-ktx:3.2.1'
+
+    // (Optional) KTX for the Maps SDK for Android Utility Library
+    implementation 'com.google.maps.android:maps-utils-ktx:3.2.1'
 
 }

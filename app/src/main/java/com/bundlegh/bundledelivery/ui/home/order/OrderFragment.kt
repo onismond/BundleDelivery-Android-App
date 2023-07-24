@@ -116,6 +116,7 @@ class OrderFragment : Fragment(), KodeinAware, OnMapReadyCallback  {
             }
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(loc, zoom))
             for (transaction in transactions){
+                Log.e("E", transaction.location.toString())
                 var location = (transaction.location!!)
                 location = location.replace(" ", "")
                 val loc = LatLng(location.split(",")[0].toDouble(), location.split(",")[1].toDouble())

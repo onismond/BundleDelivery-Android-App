@@ -53,7 +53,7 @@ interface MyApi {
     ) : Response<PayoutResponse>
 
     @FormUrlEncoded
-    @POST("login")
+    @POST("delivery/login")
     suspend fun userLogin(
         @Field("email") email: String,
         @Field("password") password: String
@@ -77,7 +77,7 @@ interface MyApi {
                 .build()
             return Retrofit.Builder()
                 .client(okHttpClient)
-                .baseUrl("http://192.168.228.169/api/")
+                .baseUrl("http://192.168.13.21/api/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(MyApi::class.java)
